@@ -31,7 +31,7 @@ public class Connection {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    break;
+                    continue;
                 }
                 message += (char) byt;
             } while (in.available() > 0);
