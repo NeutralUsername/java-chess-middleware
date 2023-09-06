@@ -18,8 +18,14 @@ public class Server {
 
     public void listenForConnections() {
         while (true) {
-            acceptConnection(utility.generateRandomAlphaNumericString(10));
+            String id = utility.generateRandomAlphaNumericString(10);
+            acceptConnection(id);
+            this.getConnection(id).send("hello " + id + "!");
         }
+    }
+
+    public Connection getConnection(String id) {
+        return connections.get(id);
     }
 
     public void acceptConnection(String id) {
@@ -33,7 +39,6 @@ public class Server {
 
             Connection connection = new Connection(socket, id);
             connections.put(id, connection);
-            connection.send("Hello " + id + "!");
         } catch (IOException e) {
             e.printStackTrace();
         }
