@@ -16,10 +16,9 @@ public class Server {
         }
     }
 
-    public void acceptConnection() {
+    public void acceptConnection(String name) {
         try {
             Socket socket = server.accept();
-            String name = "testname1";
             Connection connection = new Connection(socket, name);
             connections.put(name, connection);
             connection.send("Hello " + name + "!");
