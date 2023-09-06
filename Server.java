@@ -33,7 +33,7 @@ public class Server {
         connections.remove(id);
     }
 
-    public void terminateServer() {
+    public void closeServer() {
         try {
             server.close();
         } catch (IOException e) {
