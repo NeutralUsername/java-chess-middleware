@@ -36,17 +36,21 @@ public class Server {
                 System.out.println("Connection with id " + id + " already exists!");
                 return;
             }
-
-            Connection connection = new Connection(socket, id);
-            connections.put(id, connection);
+            
+            connections.put(id, new Connection(socket, id));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void closeConnection(String id) {
-        Connection connection = connections.get(id);
-        connection.close();
+        
+        if (!connections.containsKey(id)) {
+            System.out.println("Connection with id " + id + " does not exist!");
+            return;
+        }
+
+        connections.get(id).close();
         connections.remove(id);
     }
 
