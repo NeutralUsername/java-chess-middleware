@@ -56,14 +56,12 @@ public class Server {
 
             connections.put(id, new Connection(socket, id));
 
-            System.out.println("new connection with id " + id);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void removeConnection(String id) {
-        System.out.println("closing connection with id " + id);
         if (!connections.containsKey(id)) {
             System.out.println("Connection with id " + id + " does not exist!");
             return;
