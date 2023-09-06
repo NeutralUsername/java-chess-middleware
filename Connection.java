@@ -6,6 +6,7 @@ import java.io.InputStream;
 public class Connection {
     private Socket socket;
     private String id;
+    private Game game;
 
     public Connection(Socket socket, String id) {
         this.socket = socket;

@@ -20,7 +20,7 @@ public class Server {
         while (true) {
             String id = utility.generateRandomAlphaNumericString(10);
             addConnection(id);
-            getConnection(id).send("hello " + id + "!\ncurrently " + connections.size() + " connections are active");
+            getConnection(id).send("i" + id);
             listenForMessages(id);
         }
     }
