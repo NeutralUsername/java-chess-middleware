@@ -34,7 +34,7 @@ public class Server {
                     if (message == null) {
                         break;
                     }
-                    System.out.println("received message: " + message);
+                    System.out.println("received message: " + message + " from id " + id);
                 }
                 removeConnection(id);
             }
@@ -55,6 +55,8 @@ public class Server {
             }
 
             connections.put(id, new Connection(socket, id));
+
+            System.out.println("new connection with id " + id);
         } catch (IOException e) {
             e.printStackTrace();
         }
