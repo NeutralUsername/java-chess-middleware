@@ -1,9 +1,7 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.Charset;
 import java.util.HashMap;
-import java.util.Random;
 
 public class Server {
     private HashMap<String, Connection> connections;
@@ -20,18 +18,7 @@ public class Server {
 
     public void listenForConnections() {
         while (true) {
-            int leftLimit = 48; // numeral '0'
-            int rightLimit = 122; // letter 'z'
-            int targetStringLength = 10;
-            Random random = new Random();
-        
-            String rndString = random.ints(leftLimit, rightLimit + 1)
-              .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-              .limit(targetStringLength)
-              .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-              .toString();
-        
-            acceptConnection(rndString);
+            acceptConnection(utility.generateRandomAlphaNumericString(10));
         }
     }
 
