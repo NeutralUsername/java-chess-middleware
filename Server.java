@@ -19,6 +19,12 @@ public class Server {
     public void acceptConnection(String id) {
         try {
             Socket socket = server.accept();
+
+            if (connections.containsKey(id)) {
+                System.out.println("Connection with id " + id + " already exists!");
+                return;
+            }
+            
             Connection connection = new Connection(socket, id);
             connections.put(id, connection);
             connection.send("Hello " + id + "!");
