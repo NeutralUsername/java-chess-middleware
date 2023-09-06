@@ -30,15 +30,24 @@ public class Server {
             @Override
             public void run() {
                 while (true) {
-                    String message = connections.get(id).handleNextMessage();
+                    String message = connections.get(id).readNextMessage();
                     if (message == null) {
                         break;
                     }
-                    connections.get(id).send("eunknown id");
+                    handleMessage(id, message.substring(0, 1), message.substring(1));
                 }
                 removeConnection(id);
             }
         }).start();
+    }
+
+    public void handleMessage(String senderId, String messageType, String messageContent) {
+        switch (messageType) {
+            case "c":
+                System.out.println("connect "+messageContent);
+                connections.get(senderId).send("eunknown id");
+                break;
+        }
     }
 
     public Connection getConnection(String id) {

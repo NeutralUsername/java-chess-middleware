@@ -17,7 +17,7 @@ public class Connection {
         return socket.isClosed();
     }
 
-    public String handleNextMessage() {
+    public String readNextMessage() {
         try {
             InputStream in = socket.getInputStream();
             String message = "";
