@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class utility {
+public class utility { //https://www.baeldung.com/java-random-string
     public static String generateRandomAlphaNumericString(int length) {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
@@ -12,6 +12,5 @@ public class utility {
                 .limit(targetStringLength)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
-
     }
 }
