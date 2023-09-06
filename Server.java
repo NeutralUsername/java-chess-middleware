@@ -20,8 +20,8 @@ public class Server {
         while (true) {
             String id = utility.generateRandomAlphaNumericString(10);
             acceptConnection(id);
-            getConnection(id).send("hello " + id + "!\ncurrently " + connections.size() + " connections are active\n");
-           // closeConnection(id);
+            getConnection(id).send("hello " + id + "!\ncurrently " + connections.size() + " connections are active");
+            getConnection(id).listenForMessages();
         }
     }
 
