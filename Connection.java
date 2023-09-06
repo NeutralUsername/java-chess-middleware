@@ -12,36 +12,34 @@ public class Connection {
         this.id = id;
     }
 
-    public void listenForMessages() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    String message = receiveMessage();
-                    if (message != null) {
-                        System.out.println("received message: " + message);
-                    }
-                }
-            }
-        }).start();
+    public boolean isClosed() {
+        return socket.isClosed();
     }
 
-    public String receiveMessage() {
+    public String handleNextMessage() {
         try {
-            while (socket.getInputStream().available() == 0) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
             InputStream in = socket.getInputStream();
-            byte b[] = new byte[100];
-            in.read(b);
-            return new String(b);
+            String message = "";
+            do {
+                int byt = in.read();
+                if (byt == -1) {
+                    return "-1";
+                }
+                if (byt == 0) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+                message += (char) byt;
+            } while (in.available() > 0);
+            return message;
+
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return "-1";
         }
     }
 

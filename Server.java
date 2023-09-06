@@ -21,8 +21,24 @@ public class Server {
             String id = utility.generateRandomAlphaNumericString(10);
             acceptConnection(id);
             getConnection(id).send("hello " + id + "!\ncurrently " + connections.size() + " connections are active");
-            getConnection(id).listenForMessages();
+            listenForMessages(id);
         }
+    }
+
+    public void listenForMessages(String id) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    String message = connections.get(id).handleNextMessage();      
+                    System.out.println("received message: " + message);
+                    if (message.equals("-1")) {
+                       break;
+                    } 
+                }
+                closeConnection(id);
+            }
+        }).start();
     }
 
     public Connection getConnection(String id) {
@@ -45,7 +61,7 @@ public class Server {
     }
 
     public void closeConnection(String id) {
-
+        System.out.println("closing connection with id " + id);
         if (!connections.containsKey(id)) {
             System.out.println("Connection with id " + id + " does not exist!");
             return;
