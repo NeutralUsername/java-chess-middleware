@@ -20,7 +20,8 @@ public class Server {
         while (true) {
             String id = utility.generateRandomAlphaNumericString(10);
             acceptConnection(id);
-            this.getConnection(id).send("hello " + id + "!");
+            getConnection(id).send("hello " + id + "!\ncurrently " + connections.size() + " connections are active\n");
+           // closeConnection(id);
         }
     }
 
@@ -44,7 +45,7 @@ public class Server {
     }
 
     public void closeConnection(String id) {
-        
+
         if (!connections.containsKey(id)) {
             System.out.println("Connection with id " + id + " does not exist!");
             return;
