@@ -3,6 +3,7 @@ public class Main {
         Server server = new Server(4711);
         for (int i = 0; i < 10; i++) {
             server.acceptConnection("testname"+i);
+            server.closeConnection("testname"+i);
         }
         server.close();
     }

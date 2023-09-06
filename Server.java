@@ -27,6 +27,12 @@ public class Server {
         }
     }
 
+    public void closeConnection(String name) {
+        Connection connection = connections.get(name);
+        connection.close();
+        connections.remove(name);
+    }
+
     public void close() {
         try {
             server.close();
