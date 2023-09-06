@@ -23,7 +23,7 @@ public class Connection {
             do {
                 int byt = in.read();
                 if (byt == -1) {
-                    return "-1";
+                    return null;
                 }
                 if (byt == 0) {
                     try {
@@ -39,7 +39,7 @@ public class Connection {
 
         } catch (IOException e) {
             e.printStackTrace();
-            return "-1";
+           return null;
         }
     }
 

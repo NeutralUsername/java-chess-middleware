@@ -30,11 +30,11 @@ public class Server {
             @Override
             public void run() {
                 while (true) {
-                    String message = connections.get(id).handleNextMessage();      
+                    String message = connections.get(id).handleNextMessage();
+                    if (message == null) {
+                        break;
+                    }
                     System.out.println("received message: " + message);
-                    if (message.equals("-1")) {
-                       break;
-                    } 
                 }
                 closeConnection(id);
             }
@@ -53,7 +53,7 @@ public class Server {
                 System.out.println("Connection with id " + id + " already exists!");
                 return;
             }
-            
+
             connections.put(id, new Connection(socket, id));
         } catch (IOException e) {
             e.printStackTrace();
