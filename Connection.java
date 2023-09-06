@@ -24,18 +24,8 @@ public class Connection {
                 int byt = in.read();
                 if (byt == -1) {
                     return null;
-                } else if (byt == 0) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if (!message.equals("")) {
-                        return message;
-                    }
-                } else {
-                    message += (char) byt;
-                }
+                } 
+                message += (char) byt;
 
             } while (in.available() > 0);
             return message;
