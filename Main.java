@@ -6,6 +6,6 @@ public class Main {
             server.acceptConnection(connectionId);
             server.closeConnection(connectionId);
         }
-        server.close();
+        server.terminateServer();
     }
 }
