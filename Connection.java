@@ -24,22 +24,25 @@ public class Connection {
                 int byt = in.read();
                 if (byt == -1) {
                     return null;
-                }
-                if (byt == 0) {
+                } else if (byt == 0) {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    continue;
+                    if (!message.equals("")) {
+                        return message;
+                    }
+                } else {
+                    message += (char) byt;
                 }
-                message += (char) byt;
+
             } while (in.available() > 0);
             return message;
 
         } catch (IOException e) {
             e.printStackTrace();
-           return null;
+            return null;
         }
     }
 
