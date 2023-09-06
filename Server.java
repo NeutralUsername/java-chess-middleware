@@ -7,10 +7,10 @@ public class Server {
     private HashMap<String, Connection> connections;
     private ServerSocket server;
 
-    public Server() {
+    public Server(int port) {
         connections = new HashMap<String, Connection>();
         try {
-            server = new ServerSocket(4711);
+            server = new ServerSocket(port);
         } catch (IOException e) {
             e.printStackTrace();
         }
