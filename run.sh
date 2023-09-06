@@ -1,2 +1,2 @@
 #!/bin/bash
-java Server
+java Main
