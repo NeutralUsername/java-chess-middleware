@@ -34,7 +34,7 @@ public class Server {
                     if (message == null) {
                         break;
                     }
-                    System.out.println("received message: " + message + " from id " + id);
+                    connections.get(id).send("eunknown id");
                 }
                 removeConnection(id);
             }

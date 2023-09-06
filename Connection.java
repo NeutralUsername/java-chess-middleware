@@ -25,7 +25,7 @@ public class Connection {
                 int byt = in.read();
                 if (byt == -1) {
                     return null;
-                } 
+                }
                 message += (char) byt;
 
             } while (in.available() > 0);
