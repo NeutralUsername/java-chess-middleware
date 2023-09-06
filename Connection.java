@@ -4,11 +4,11 @@ import java.io.IOException;
 
 public class Connection {
     private Socket socket;
-    private String name;
+    private String id;
 
-    public Connection(Socket socket, String name) {
+    public Connection(Socket socket, String id) {
         this.socket = socket;
-        this.name = name;
+        this.id = id;
     }
 
     public void send(String message) {

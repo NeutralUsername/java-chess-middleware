@@ -16,21 +16,21 @@ public class Server {
         }
     }
 
-    public void acceptConnection(String name) {
+    public void acceptConnection(String id) {
         try {
             Socket socket = server.accept();
-            Connection connection = new Connection(socket, name);
-            connections.put(name, connection);
-            connection.send("Hello " + name + "!");
+            Connection connection = new Connection(socket, id);
+            connections.put(id, connection);
+            connection.send("Hello " + id + "!");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void closeConnection(String name) {
-        Connection connection = connections.get(name);
+    public void closeConnection(String id) {
+        Connection connection = connections.get(id);
         connection.close();
-        connections.remove(name);
+        connections.remove(id);
     }
 
     public void close() {
