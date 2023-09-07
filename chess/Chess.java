@@ -13,7 +13,7 @@ import chess.pieces.King;
 public class Chess {
 
     private Field[][] board;
-    private ArrayList<Action> actions = new ArrayList<Action>();
+    private ArrayList<String> moves = new ArrayList<>();
 
     public Chess() {
         board = new Field[8][8];
@@ -41,14 +41,14 @@ public class Chess {
     }
 
     public boolean isWhiteTurn() {
-        return actions.size() % 2 == 0;
+        return moves.size() % 2 == 0;
     }
 
     public boolean isUnderAttack(int row, int column) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; i < 8; i++) {
                 if (board[i][j].getPiece() != null && board[i][j].getPiece().isWhite() != isWhiteTurn()) {
-                    if (isValidMovement(i, j, row, column)) {
+                    if (isValidAction(i, j, row, column)) {
                         return true;
                     }
                 }
@@ -57,7 +57,7 @@ public class Chess {
         return false;
     }
 
-    public boolean isValidMovement(int fromRow, int fromColumn, int toRow, int toColumn) {
+    public boolean isValidAction(int fromRow, int fromColumn, int toRow, int toColumn) {
         if (fromRow < 0 || fromRow > 7 || fromColumn < 0 || fromColumn > 7 || toRow < 0 || toRow > 7 || toColumn < 0
                 || toColumn > 7 || (fromRow == toRow && fromColumn == toColumn)) {
             return false;
