@@ -38,10 +38,10 @@ public class Connection {
         }
     }
 
-    public void send(String message) {
+    public void send(String messageType, String messageContent) {
         try {
             OutputStream stream = socket.getOutputStream();
-            byte bmessage[] = message.getBytes();
+            byte bmessage[] = (messageType + messageContent + "\0").getBytes();
             stream.write(bmessage);
         } catch (IOException e) {
             e.printStackTrace();

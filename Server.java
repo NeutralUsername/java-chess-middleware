@@ -20,7 +20,7 @@ public class Server {
         while (true) {
             String id = utility.generateRandomAlphaNumericString(10);
             addConnection(id);
-            getConnection(id).send("i" + id+"\0");
+            getConnection(id).send("i" , id);
             listenForMessages(id);
         }
     }
@@ -45,7 +45,7 @@ public class Server {
         switch (messageType) {
             case "c":
                 System.out.println("connect "+messageContent);
-                connections.get(senderId).send("eunknown id\0");
+                connections.get(senderId).send("e", "unknown id");
                 break;
         }
     }
