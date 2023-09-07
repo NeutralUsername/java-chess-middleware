@@ -6,7 +6,7 @@ import java.io.InputStream;
 public class Connection {
     private Socket socket;
     private String id;
-    private Game game;
+    private Chess game;
 
     public Connection(Socket socket, String id) {
         this.socket = socket;
@@ -44,6 +44,10 @@ public class Connection {
 
     public String getId() {
         return id;
+    }
+
+    public void setGame(Chess game) {
+        this.game = game;
     }
 
     public void sendMessage(String messageType, String messageContent) {

@@ -71,8 +71,11 @@ public class Server {
                     if (receiverConnection.isIngame() || senderConnection.isIngame()) {
                         senderConnection.sendMessage("e", "already in game");
                     } else {
-                        senderConnection.sendMessage("c", messageContent);
-                        receiverConnection.sendMessage("c", senderConnection.getId());
+                        Chess game = new Chess(senderConnection.getId(), receiverConnection.getId());
+                        senderConnection.setGame(game);
+                        receiverConnection.setGame(game);
+                        senderConnection.sendMessage("g", messageContent);
+                        receiverConnection.sendMessage("g", senderConnection.getId());
                     }
                 }
                 break;
@@ -95,19 +98,19 @@ public class Server {
         }
     }
 
-    public Connection getConnection(String id) {
-        return connections.get(id);
-    }
-
-    public ServerSocket getServerSocket() {
-        return serverSocket;
-    }
-
     public void addConnection(Connection connection) {
         connections.put(connection.getId(), connection);
     }
 
     public void removeConnection(String id) {
         connections.remove(id);
+    }
+
+    public Connection getConnection(String id) {
+        return connections.get(id);
+    }
+
+    public ServerSocket getServerSocket() {
+        return serverSocket;
     }
 }
