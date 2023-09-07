@@ -3,6 +3,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
+import chess.Chess;
+
 public class Server {
     private HashMap<String, Connection> connections;
     private ServerSocket serverSocket;
@@ -71,7 +73,7 @@ public class Server {
                     if (receiverConnection.isIngame() || senderConnection.isIngame()) {
                         senderConnection.sendMessage("e", "already in game");
                     } else {
-                        Chess game = new Chess(senderConnection.getId(), receiverConnection.getId());
+                        Chess game = new Chess();
                         senderConnection.setGame(game);
                         receiverConnection.setGame(game);
                         senderConnection.sendMessage("g", "w");

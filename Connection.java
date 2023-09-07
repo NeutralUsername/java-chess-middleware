@@ -1,4 +1,7 @@
 import java.net.Socket;
+
+import chess.Chess;
+
 import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
