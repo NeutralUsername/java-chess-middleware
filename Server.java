@@ -74,8 +74,8 @@ public class Server {
                         Chess game = new Chess(senderConnection.getId(), receiverConnection.getId());
                         senderConnection.setGame(game);
                         receiverConnection.setGame(game);
-                        senderConnection.sendMessage("g", messageContent);
-                        receiverConnection.sendMessage("g", senderConnection.getId());
+                        senderConnection.sendMessage("g", "w");
+                        receiverConnection.sendMessage("g",  "b");
                     }
                 }
                 break;
