@@ -43,7 +43,6 @@ public class Server {
     public void handleMessage(Connection senderConnection, String messageType, String messageContent) {
         switch (messageType) {
             case "c":
-
                 Connection receiverConnection = connections.get(messageContent);
                 if (receiverConnection == null) {
                     senderConnection.send("e", "unknown id");
