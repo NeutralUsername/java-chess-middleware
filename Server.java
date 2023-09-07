@@ -18,35 +18,49 @@ public class Server {
 
     public void listenForConnections() {
         while (true) {
-            String id = utility.generateRandomAlphaNumericString(10);
-            addConnection(id);
-            getConnection(id).send("i" , id);
-            listenForMessages(id);
+            Connection connection = addConnection(utility.generateRandomAlphaNumericString(10));
+            connection.send("i", connection.getId());
+            listenForMessages(connection);
         }
     }
 
-    public void listenForMessages(String id) {
+    public void listenForMessages(Connection connection) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (true) {
-                    String message = connections.get(id).readNextMessage();
+                    String message = connection.readNextMessage();
                     if (message == null) {
                         break;
                     }
-                    handleMessage(id, message.substring(0, 1), message.substring(1));
+                    handleMessage(connection, message.substring(0, 1), message.substring(1));
                 }
-                removeConnection(id);
+                removeConnection(connection);
             }
         }).start();
     }
 
-    public void handleMessage(String senderId, String messageType, String messageContent) {
+    public void handleMessage(Connection senderConnection, String messageType, String messageContent) {
         switch (messageType) {
             case "c":
-                System.out.println("connect "+messageContent);
-                connections.get(senderId).send("e", "unknown id");
+
+                Connection receiverConnection = connections.get(messageContent);
+                if (receiverConnection == null) {
+                    senderConnection.send("e", "unknown id");
+                } else if (senderConnection == receiverConnection) {
+                    senderConnection.send("e", "invalid id");
+                } else {
+                    if (receiverConnection.isIngame() || senderConnection.isIngame()) {
+                        senderConnection.send("e", "already in game");
+                    } else {
+                        senderConnection.send("c", messageContent);
+                        connections.get(messageContent).send("c", senderConnection.getId());
+                    }
+                }
                 break;
+            case "m": {
+                System.out.println("test");
+            }
         }
     }
 
@@ -54,30 +68,25 @@ public class Server {
         return connections.get(id);
     }
 
-    public void addConnection(String id) {
+    public Connection addConnection(String id) {
         try {
             Socket socket = server.accept();
-
             if (connections.containsKey(id)) {
                 System.out.println("Connection with id " + id + " already exists!");
-                return;
+                return null;
             }
-
-            connections.put(id, new Connection(socket, id));
-
+            Connection connection = new Connection(socket, id);
+            connections.put(id, connection);
+            return connection;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
-    public void removeConnection(String id) {
-        if (!connections.containsKey(id)) {
-            System.out.println("Connection with id " + id + " does not exist!");
-            return;
-        }
-
-        connections.get(id).close();
-        connections.remove(id);
+    public void removeConnection(Connection connection) {
+        connection.close();
+        connections.remove(connection.getId());
     }
 
     public void closeServer() {

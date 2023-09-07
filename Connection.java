@@ -38,6 +38,14 @@ public class Connection {
         }
     }
 
+    public boolean isIngame() {
+        return game != null;
+    }
+
+    public String getId() {
+        return id;
+    }
+
     public void send(String messageType, String messageContent) {
         try {
             OutputStream stream = socket.getOutputStream();
