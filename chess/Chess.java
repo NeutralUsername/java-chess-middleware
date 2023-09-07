@@ -44,7 +44,7 @@ public class Chess {
         return actions.size() % 2 == 0;
     }
 
-    public boolean fieldIsUnderAttack(int row, int column) {
+    public boolean isUnderAttack(int row, int column) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; i < 8; i++) {
                 if (board[i][j].getPiece() != null && board[i][j].getPiece().isWhite() != isWhiteTurn()) {
@@ -59,7 +59,7 @@ public class Chess {
 
     public boolean isValidMovement(int fromRow, int fromColumn, int toRow, int toColumn) {
         if (fromRow < 0 || fromRow > 7 || fromColumn < 0 || fromColumn > 7 || toRow < 0 || toRow > 7 || toColumn < 0
-                || toColumn > 7) {
+                || toColumn > 7 || (fromRow == toRow && fromColumn == toColumn)) {
             return false;
         }
         Piece piece = board[fromRow][fromColumn].getPiece();
@@ -93,7 +93,7 @@ public class Chess {
         board[fromRow][fromColumn].setPiece(null);
 
         Field kingField = getKingField();
-        boolean kindUnderAttack = fieldIsUnderAttack(kingField.getRow(), kingField.getColumn());
+        boolean kindUnderAttack = isUnderAttack(kingField.getRow(), kingField.getColumn());
 
         board[fromRow][fromColumn].setPiece(piece);
         board[toRow][toColumn].setPiece(toPiece);
@@ -275,7 +275,7 @@ public class Chess {
 
     private boolean isValidKingMovement(int fromRow, int fromColumn, int toRow, int toColumn) {
         King king = (King) board[fromRow][fromColumn].getPiece();
-        if (!king.hasMoved() && !fieldIsUnderAttack(fromRow, fromColumn)) {
+        if (!king.hasMoved() && !isUnderAttack(fromRow, fromColumn)) {
             if (isWhiteTurn()) {
                 if (fromRow == 0 && fromColumn == 4 && toRow == 0 && toColumn == 6
                         && board[0][5].getPiece() == null
@@ -283,9 +283,9 @@ public class Chess {
                         && board[0][7].getPiece().isWhite()
                         && board[0][7].getPiece() instanceof Rook
                         && !((Rook) board[0][7].getPiece()).hasMoved()
-                        && !fieldIsUnderAttack(0, 5)
-                        && !fieldIsUnderAttack(0, 6)
-                        && !fieldIsUnderAttack(0, 7)) {
+                        && !isUnderAttack(0, 5)
+                        && !isUnderAttack(0, 6)
+                        && !isUnderAttack(0, 7)) {
                     return true;
                 }
                 if (fromRow == 0 && fromColumn == 4 && toRow == 0 && toColumn == 2
@@ -295,9 +295,9 @@ public class Chess {
                         && board[0][0].getPiece().isWhite()
                         && board[0][0].getPiece() instanceof Rook
                         && !((Rook) board[0][0].getPiece()).hasMoved()
-                        && !fieldIsUnderAttack(0, 0)
-                        && !fieldIsUnderAttack(0, 2)
-                        && !fieldIsUnderAttack(0, 3)) {
+                        && !isUnderAttack(0, 0)
+                        && !isUnderAttack(0, 2)
+                        && !isUnderAttack(0, 3)) {
                     return true;
                 }
             } else {
@@ -307,9 +307,9 @@ public class Chess {
                         && !board[7][7].getPiece().isWhite()
                         && board[7][7].getPiece() instanceof Rook
                         && !((Rook) board[7][7].getPiece()).hasMoved()
-                        && !fieldIsUnderAttack(7, 5)
-                        && !fieldIsUnderAttack(7, 6)
-                        && !fieldIsUnderAttack(7, 7)) {
+                        && !isUnderAttack(7, 5)
+                        && !isUnderAttack(7, 6)
+                        && !isUnderAttack(7, 7)) {
                     return true;
                 }
                 if (fromRow == 7 && fromColumn == 4 && toRow == 7 && toColumn == 2
@@ -319,9 +319,9 @@ public class Chess {
                         && !board[7][0].getPiece().isWhite()
                         && board[7][0].getPiece() instanceof Rook
                         && !((Rook) board[7][0].getPiece()).hasMoved()
-                        && !fieldIsUnderAttack(7, 0)
-                        && !fieldIsUnderAttack(7, 2)
-                        && !fieldIsUnderAttack(7, 3)) {
+                        && !isUnderAttack(7, 0)
+                        && !isUnderAttack(7, 2)
+                        && !isUnderAttack(7, 3)) {
                     return true;
                 }
             }
