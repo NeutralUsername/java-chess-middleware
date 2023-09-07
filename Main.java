@@ -5,6 +5,6 @@ public class Main {
         server.listenForConnections();
 
         // unreachable currently
-        server.closeServer();
+        server.terminateServer();
     }
 }
