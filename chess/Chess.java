@@ -12,7 +12,7 @@ import chess.pieces.King;
 public class Chess {
 
     private Field[][] board;
-    private ArrayList<Actions> movements = new ArrayList<Actions>();
+    private ArrayList<Actions> actions = new ArrayList<Actions>();
 
     public Chess() {
         board = new Field[8][8];
