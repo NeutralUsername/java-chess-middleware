@@ -74,8 +74,8 @@ public class Server {
                         senderConnection.sendMessage("e", "already in game");
                     } else {
                         Chess game = new Chess();
-                        senderConnection.setGame(game);
-                        receiverConnection.setGame(game);
+                        senderConnection.setGame(game, true);
+                        receiverConnection.setGame(game, false);
                         senderConnection.sendMessage("g", "w");
                         receiverConnection.sendMessage("g",  "b");
                     }

@@ -9,7 +9,9 @@ import java.io.InputStream;
 public class Connection {
     private Socket socket;
     private String id;
+
     private Chess game;
+    private Boolean isWhite;
 
     public Connection(Socket socket, String id) {
         this.socket = socket;
@@ -49,8 +51,9 @@ public class Connection {
         return id;
     }
 
-    public void setGame(Chess game) {
+    public void setGame(Chess game, boolean isWhite) {
         this.game = game;
+        this.isWhite = isWhite;
     }
 
     public void sendMessage(String messageType, String messageContent) {
