@@ -19,6 +19,9 @@ public class Server {
     public void listenForConnections() {
         while (true) {
             Connection connection = addConnection(utility.generateRandomAlphaNumericString(10));
+            if (connection == null) {
+                continue;
+            }
             connection.send("i", connection.getId());
             listenForMessages(connection);
         }
