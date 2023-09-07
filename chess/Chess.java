@@ -2,8 +2,8 @@ package chess;
 
 import java.util.ArrayList;
 
-import chess.pieces.Pawn;
 import chess.pieces.Piece;
+import chess.pieces.Pawn;
 import chess.pieces.Rook;
 import chess.pieces.Knight;
 import chess.pieces.Bishop;
@@ -112,6 +112,26 @@ public class Chess {
         return null;
     }
 
+    private String getColumnLetter(int column) {
+        switch (column) {
+            case 0:
+                return "a";
+            case 1:
+                return "b";
+            case 2:
+                return "c";
+            case 3:
+                return "d";
+            case 4:
+                return "e";
+            case 5:
+                return "f";
+            case 6:
+                return "g";
+        }
+        return "h";
+    }
+
     private boolean isValidPawnMovement(int fromRow, int fromColumn, int toRow, int toColumn) {
         if (isWhiteTurn()) {
             if (fromRow == 1 && fromColumn == toColumn && toRow == 3 && board[2][toColumn].getPiece() == null
@@ -121,12 +141,10 @@ public class Chess {
             if (fromRow == toRow + 1 && fromColumn == toColumn && board[toRow][toColumn].getPiece() == null) {
                 return true;
             }
-            if (fromRow == toRow + 1 && fromColumn == toColumn + 1 && board[toRow][toColumn].getPiece() != null
-                    && !board[toRow][toColumn].getPiece().isWhite()) {
-                return true;
-            }
-            if (fromRow == toRow + 1 && fromColumn == toColumn - 1 && board[toRow][toColumn].getPiece() != null
-                    && !board[toRow][toColumn].getPiece().isWhite()) {
+            if (fromRow == toRow + 1 && (fromColumn == toColumn + 1 || fromColumn == toColumn - 1)
+                    && ((board[toRow][toColumn].getPiece() != null && !board[toRow][toColumn].getPiece().isWhite())
+                            || (moves.size() > 0
+                                    && moves.get(moves.size() - 1).equals(getColumnLetter(toColumn) + (toRow + 1))))) {
                 return true;
             }
         } else {
@@ -137,12 +155,10 @@ public class Chess {
             if (fromRow == toRow - 1 && fromColumn == toColumn && board[toRow][toColumn].getPiece() == null) {
                 return true;
             }
-            if (fromRow == toRow - 1 && fromColumn == toColumn + 1 && board[toRow][toColumn].getPiece() != null
-                    && board[toRow][toColumn].getPiece().isWhite()) {
-                return true;
-            }
-            if (fromRow == toRow - 1 && fromColumn == toColumn - 1 && board[toRow][toColumn].getPiece() != null
-                    && board[toRow][toColumn].getPiece().isWhite()) {
+            if (fromRow == toRow - 1 && (fromColumn == toColumn + 1 || fromColumn == toColumn - 1)
+                    && ((board[toRow][toColumn].getPiece() != null && board[toRow][toColumn].getPiece().isWhite())
+                            || (moves.size() > 0
+                                    && moves.get(moves.size() - 1).equals(getColumnLetter(toColumn) + (toRow + 1))))) {
                 return true;
             }
         }
