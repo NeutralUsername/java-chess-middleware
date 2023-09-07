@@ -138,13 +138,13 @@ public class Chess {
                     && board[3][toColumn].getPiece() == null) {
                 return true;
             }
-            if (fromRow == toRow + 1 && fromColumn == toColumn && board[toRow][toColumn].getPiece() == null) {
+            if (fromRow + 1 == toRow && fromColumn == toColumn && board[toRow][toColumn].getPiece() == null) {
                 return true;
             }
-            if (fromRow == toRow + 1 && (fromColumn == toColumn + 1 || fromColumn == toColumn - 1)
+            if (fromRow + 1 == toRow && (fromColumn == toColumn + 1 || fromColumn == toColumn - 1)
                     && ((board[toRow][toColumn].getPiece() != null && !board[toRow][toColumn].getPiece().isWhite())
                             || (moves.size() > 0
-                                    && moves.get(moves.size() - 1).equals(getColumnLetter(toColumn) + (toRow + 1))))) {
+                                    && moves.get(moves.size() - 1).equals(getColumnLetter(toColumn) + 5)))) {
                 return true;
             }
         } else {
@@ -152,13 +152,13 @@ public class Chess {
                     && board[4][toColumn].getPiece() == null) {
                 return true;
             }
-            if (fromRow == toRow - 1 && fromColumn == toColumn && board[toRow][toColumn].getPiece() == null) {
+            if (fromRow - 1 == toRow && fromColumn == toColumn && board[toRow][toColumn].getPiece() == null) {
                 return true;
             }
-            if (fromRow == toRow - 1 && (fromColumn == toColumn + 1 || fromColumn == toColumn - 1)
+            if (fromRow - 1 == toRow && (fromColumn == toColumn + 1 || fromColumn == toColumn - 1)
                     && ((board[toRow][toColumn].getPiece() != null && board[toRow][toColumn].getPiece().isWhite())
                             || (moves.size() > 0
-                                    && moves.get(moves.size() - 1).equals(getColumnLetter(toColumn) + (toRow + 1))))) {
+                                    && moves.get(moves.size() - 1).equals(getColumnLetter(toColumn) + (4))))) {
                 return true;
             }
         }
