@@ -93,12 +93,12 @@ public class Chess {
         board[fromRow][fromColumn].setPiece(null);
 
         Field kingField = getKingField();
-        boolean kindUnderAttack = isUnderAttack(kingField.getRow(), kingField.getColumn());
+        boolean kingUnderAttack = isUnderAttack(kingField.getRow(), kingField.getColumn());
 
         board[fromRow][fromColumn].setPiece(piece);
         board[toRow][toColumn].setPiece(toPiece);
 
-        return !kindUnderAttack;
+        return !kingUnderAttack;
     }
 
     private Field getKingField() {
