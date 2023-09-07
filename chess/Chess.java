@@ -40,23 +40,6 @@ public class Chess {
         board[7][7] = new Field(7, 7, new Rook(false));
     }
 
-    public boolean isWhiteTurn() {
-        return moves.size() % 2 == 0;
-    }
-
-    public boolean isUnderAttack(int row, int column) {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; i < 8; i++) {
-                if (board[i][j].getPiece() != null && board[i][j].getPiece().isWhite() != isWhiteTurn()) {
-                    if (isValidAction(i, j, row, column)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
     public void move(int fromRow, int fromColumn, int toRow, int toColumn) {
         if (isValidAction(fromRow, fromColumn, toRow, toColumn)) {
             Piece piece = board[fromRow][fromColumn].getPiece();
@@ -83,11 +66,28 @@ public class Chess {
             }
             board[toRow][toColumn].setPiece(piece);
             board[fromRow][fromColumn].setPiece(null);
-            moves.add(getColumnLetter(fromColumn) + (fromRow + 1));
+            moves.add(getColumnLetter(fromColumn) + (fromRow + 1)); //todo add proper notation
             if (piece instanceof Pawn && (toRow == 0 || toRow == 7)) {
                 board[toRow][toColumn].setPiece(new Queen(piece.isWhite()));
             }
         }
+    }
+
+    public boolean isWhiteTurn() {
+        return moves.size() % 2 == 0;
+    }
+
+    public boolean isUnderAttack(int row, int column) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; i < 8; i++) {
+                if (board[i][j].getPiece() != null && board[i][j].getPiece().isWhite() != isWhiteTurn()) {
+                    if (isValidAction(i, j, row, column)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public boolean isValidAction(int fromRow, int fromColumn, int toRow, int toColumn) {
