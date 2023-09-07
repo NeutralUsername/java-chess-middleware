@@ -57,6 +57,39 @@ public class Chess {
         return false;
     }
 
+    public void move(int fromRow, int fromColumn, int toRow, int toColumn) {
+        if (isValidAction(fromRow, fromColumn, toRow, toColumn)) {
+            Piece piece = board[fromRow][fromColumn].getPiece();
+            if (piece instanceof King && Math.abs(fromColumn - toColumn) == 2) {
+                if (isWhiteTurn()) {
+                    if (toColumn == 6) {
+                        board[0][7].setPiece(null);
+                        board[0][5].setPiece(new Rook(true));
+                    } else {
+                        board[0][0].setPiece(null);
+                        board[0][3].setPiece(new Rook(true));
+                    }
+                } else {
+                    if (toColumn == 6) {
+                        board[7][7].setPiece(null);
+                        board[7][5].setPiece(new Rook(false));
+                    } else {
+                        board[7][0].setPiece(null);
+                        board[7][3].setPiece(new Rook(false));
+                    }
+                }
+            } else if (piece instanceof Pawn && fromColumn != toColumn && board[toRow][toColumn].getPiece() == null) {
+                board[toRow + (isWhiteTurn() ? -1 : 1)][toColumn].setPiece(null);
+            }
+            board[toRow][toColumn].setPiece(piece);
+            board[fromRow][fromColumn].setPiece(null);
+            moves.add(getColumnLetter(fromColumn) + (fromRow + 1));
+            if (piece instanceof Pawn && (toRow == 0 || toRow == 7)) {
+                board[toRow][toColumn].setPiece(new Queen(piece.isWhite()));
+            }
+        }
+    }
+
     public boolean isValidAction(int fromRow, int fromColumn, int toRow, int toColumn) {
         if (fromRow < 0 || fromRow > 7 || fromColumn < 0 || fromColumn > 7 || toRow < 0 || toRow > 7 || toColumn < 0
                 || toColumn > 7 || (fromRow == toRow && fromColumn == toColumn)) {
