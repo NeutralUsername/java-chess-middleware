@@ -1,5 +1,5 @@
 package chess;
 
-public class Actions {
+public class Action {
     
 }

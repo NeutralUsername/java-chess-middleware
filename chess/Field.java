@@ -12,4 +12,20 @@ public class Field {
         this.column = column;
         this.piece = piece;
     }
+
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public void setPiece(Piece newPiece) {
+        piece = newPiece;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
 }

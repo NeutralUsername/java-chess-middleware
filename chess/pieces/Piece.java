@@ -6,4 +6,8 @@ public class Piece {
     public Piece(boolean isWhite) {
         this.isWhite = isWhite;
     }
+
+    public boolean isWhite() {
+        return isWhite;
+    }
 }
