@@ -22,7 +22,7 @@ public class Server {
             if (connection == null) {
                 continue;
             }
-            connection.send("i", connection.getId());
+            connection.sendMessage("i", connection.getId());
             listenForMessages(connection);
         }
     }
@@ -64,15 +64,15 @@ public class Server {
             case "c":
                 Connection receiverConnection = getConnection(messageContent);
                 if (receiverConnection == null) {
-                    senderConnection.send("e", "unknown id");
+                    senderConnection.sendMessage("e", "unknown id");
                 } else if (senderConnection == receiverConnection) {
-                    senderConnection.send("e", "invalid id");
+                    senderConnection.sendMessage("e", "invalid id");
                 } else {
                     if (receiverConnection.isIngame() || senderConnection.isIngame()) {
-                        senderConnection.send("e", "already in game");
+                        senderConnection.sendMessage("e", "already in game");
                     } else {
-                        senderConnection.send("c", messageContent);
-                        receiverConnection.send("c", senderConnection.getId());
+                        senderConnection.sendMessage("c", messageContent);
+                        receiverConnection.sendMessage("c", senderConnection.getId());
                     }
                 }
                 break;

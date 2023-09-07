@@ -46,7 +46,7 @@ public class Connection {
         return id;
     }
 
-    public void send(String messageType, String messageContent) {
+    public void sendMessage(String messageType, String messageContent) {
         try {
             OutputStream stream = socket.getOutputStream();
             byte bmessage[] = (messageType + messageContent + "\0").getBytes();
