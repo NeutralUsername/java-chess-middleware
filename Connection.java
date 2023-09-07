@@ -26,10 +26,11 @@ public class Connection {
                 if (byt == -1) {
                     return null;
                 }
+                if (byt == 0) {
+                    return message;
+                }
                 message += (char) byt;
-
-            } while (in.available() > 0);
-            return message;
+            } while (true);
 
         } catch (IOException e) {
             e.printStackTrace();
