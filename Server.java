@@ -5,12 +5,12 @@ import java.util.HashMap;
 
 public class Server {
     private HashMap<String, Connection> connections;
-    private ServerSocket server;
+    private ServerSocket serverSocket;
 
     public Server(int port) {
         connections = new HashMap<String, Connection>();
         try {
-            server = new ServerSocket(port);
+            serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -29,7 +29,7 @@ public class Server {
 
     public Connection acceptNextConnection() {
         try {
-            Socket socket = server.accept();
+            Socket socket = serverSocket.accept();
             String id = utility.generateRandomAlphaNumericString(10);
             while (getConnection(id) != null) {
                 id = utility.generateRandomAlphaNumericString(10);
@@ -89,7 +89,7 @@ public class Server {
 
     public void terminateServer() {
         try {
-            server.close();
+            serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,6 +97,10 @@ public class Server {
 
     public Connection getConnection(String id) {
         return connections.get(id);
+    }
+
+    public ServerSocket getServerSocket() {
+        return serverSocket;
     }
 
     public void addConnection(Connection connection) {
