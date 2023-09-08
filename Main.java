@@ -8,6 +8,7 @@ public class Main {
             return;
         }
         server.listenForConnections();
+
     }
 }
 
@@ -37,6 +38,7 @@ public class Main {
 
 /*
  * fools mate
+ * 
  * chess.move(1, 5, 2, 5);
  * chess.printBoard();
  * 
@@ -50,9 +52,6 @@ public class Main {
  * chess.printBoard();
  * 
  * chess.move(1, 0, 2, 0);
- * chess.printBoard();
- * 
- * chess.move(6, 0, 4, 0);
  * chess.printBoard();
  */
 
