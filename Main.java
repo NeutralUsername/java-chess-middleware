@@ -62,6 +62,15 @@ public class Main {
         chess.move(0, 4, 0, 2);  //success because the bishop is no longer threatening the square in between
         chess.printBoard();
 
+        chess.move(3, 1, 1, 0);
+        chess.printBoard();
+
+        chess.move(2, 1, 3, 1); //fails because king is in check and this move does not remove the check
+        chess.printBoard();
+
+        chess.move(2, 1, 1, 0); //success gets king out of check
+        chess.printBoard();
+
     }
 }
 
