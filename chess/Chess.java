@@ -102,7 +102,11 @@ public class Chess {
             board[toRow][toColumn].setPiece(piece);
             board[fromRow][fromColumn].setPiece(null);
             moves.add(notation);
-            if (piece instanceof Pawn && (toRow == 0 || toRow == 7)) {
+            if (piece instanceof King) {
+                ((King) piece).setHasMoved(true);
+            } else if (piece instanceof Rook) {
+                ((Rook) piece).setHasMoved(true);
+            } else if (piece instanceof Pawn && (toRow == 0 || toRow == 7)) {
                 board[toRow][toColumn].setPiece(new Queen(piece.isWhite()));
             }
         }
@@ -184,7 +188,7 @@ public class Chess {
         if (attackingPiece instanceof Queen && isValidQueenMovement(fromRow, fromColumn, toRow, toColumn)) {
             return true;
         }
-        if (attackingPiece instanceof King ) {
+        if (attackingPiece instanceof King) {
             if (fromRow == toRow + 1 && fromColumn == toColumn && (board[toRow][toColumn].getPiece() == null
                     || board[toRow][toColumn].getPiece().isWhite() != attackingPiece.isWhite())) {
                 return true;
@@ -227,8 +231,6 @@ public class Chess {
             return false;
         }
         Piece piece = board[fromRow][fromColumn].getPiece();
-
-        System.out.println(piece.getClass());
         if (piece == null) {
             return false;
         }
