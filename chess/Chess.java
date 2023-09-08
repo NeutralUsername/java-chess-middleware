@@ -102,22 +102,22 @@ public class Chess {
         if (piece.isWhite() != isWhiteTurn()) {
             return false;
         }
-        if (piece instanceof Pawn && isValidPawnMovement(fromRow, fromColumn, toRow, toColumn)) {
+        if (piece instanceof Pawn && !isValidPawnMovement(fromRow, fromColumn, toRow, toColumn)) {
             return false;
         }
-        if (piece instanceof Rook && isValidRookMovement(fromRow, fromColumn, toRow, toColumn)) {
+        if (piece instanceof Rook && !isValidRookMovement(fromRow, fromColumn, toRow, toColumn)) {
             return false;
         }
-        if (piece instanceof Knight && isValidKnightMovement(fromRow, fromColumn, toRow, toColumn)) {
+        if (piece instanceof Knight && !isValidKnightMovement(fromRow, fromColumn, toRow, toColumn)) {
             return false;
         }
-        if (piece instanceof Bishop && isValidBishopMovement(fromRow, fromColumn, toRow, toColumn)) {
+        if (piece instanceof Bishop && !isValidBishopMovement(fromRow, fromColumn, toRow, toColumn)) {
             return false;
         }
-        if (piece instanceof Queen && isValidQueenMovement(fromRow, fromColumn, toRow, toColumn)) {
+        if (piece instanceof Queen && !isValidQueenMovement(fromRow, fromColumn, toRow, toColumn)) {
             return false;
         }
-        if (piece instanceof King && isValidKingMovement(fromRow, fromColumn, toRow, toColumn)) {
+        if (piece instanceof King && !isValidKingMovement(fromRow, fromColumn, toRow, toColumn)) {
             return false;
         }
 
