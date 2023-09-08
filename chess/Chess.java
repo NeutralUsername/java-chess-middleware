@@ -50,8 +50,8 @@ public class Chess {
 
     public void printBoard() {
         System.out.println("  a b c d e f g h");
-        for (int i = 0; i < 8; i++) {
-            System.out.print((8 - i) + " ");
+        for (int i = 7; i >= 0; i--) {
+            System.out.print((i+1) + " ");
             for (int j = 0; j < 8; j++) {
                 if (board[i][j].getPiece() == null) {
                     System.out.print("  ");
@@ -69,7 +69,7 @@ public class Chess {
                     System.out.print((board[i][j].getPiece().isWhite() ? "K" : "k") + " ");
                 }
             }
-            System.out.println(8 - i);
+            System.out.println(i+1);
         }
         System.out.println("  a b c d e f g h");
     }
