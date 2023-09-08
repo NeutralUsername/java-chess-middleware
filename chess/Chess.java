@@ -349,48 +349,55 @@ public class Chess {
     }
 
     private boolean isValidBishopMovement(int fromRow, int fromColumn, int toRow, int toColumn) {
-        if (fromRow < toRow && fromColumn < toColumn) {
-            for (int i = 1; i < toRow - fromRow; i++) {
-                if (board[fromRow + i][fromColumn + i].getPiece() != null) {
-                    return false;
+        for (int i= 0; i < 8; i++) {
+            if (fromRow + i == toRow && fromColumn + i == toColumn) {
+                for (int j = 1; j < i; j++) {
+                    if (board[fromRow + j][fromColumn + j].getPiece() != null) {
+                        return false;
+                    }
                 }
+                return board[toRow][toColumn].getPiece() == null
+                        || board[toRow][toColumn].getPiece().isWhite() != isWhiteTurn();
             }
-            return board[toRow][toColumn].getPiece() == null
-                    || board[toRow][toColumn].getPiece().isWhite() != isWhiteTurn();
-        }
-        if (fromRow < toRow && fromColumn > toColumn) {
-            for (int i = 1; i < toRow - fromRow; i++) {
-                if (board[fromRow + i][fromColumn - i].getPiece() != null) {
-                    return false;
+            if (fromRow + i == toRow && fromColumn - i == toColumn) {
+                for (int j = 1; j < i; j++) {
+                    if (board[fromRow + j][fromColumn - j].getPiece() != null) {
+                        return false;
+                    }
                 }
+                return board[toRow][toColumn].getPiece() == null
+                        || board[toRow][toColumn].getPiece().isWhite() != isWhiteTurn();
             }
-            return board[toRow][toColumn].getPiece() == null
-                    || board[toRow][toColumn].getPiece().isWhite() != isWhiteTurn();
-        }
-        if (fromRow > toRow && fromColumn < toColumn) {
-            for (int i = 1; i < fromRow - toRow; i++) {
-                if (board[fromRow - i][fromColumn + i].getPiece() != null) {
-                    return false;
+            if (fromRow - i == toRow && fromColumn + i == toColumn) {
+                for (int j = 1; j < i; j++) {
+                    if (board[fromRow - j][fromColumn + j].getPiece() != null) {
+                        return false;
+                    }
                 }
+                return board[toRow][toColumn].getPiece() == null
+                        || board[toRow][toColumn].getPiece().isWhite() != isWhiteTurn();
             }
-            return board[toRow][toColumn].getPiece() == null
-                    || board[toRow][toColumn].getPiece().isWhite() != isWhiteTurn();
-        }
-        if (fromRow > toRow && fromColumn > toColumn) {
-            for (int i = 1; i < fromRow - toRow; i++) {
-                if (board[fromRow - i][fromColumn - i].getPiece() != null) {
-                    return false;
+            if (fromRow - i == toRow && fromColumn - i == toColumn) {
+                for (int j = 1; j < i; j++) {
+                    if (board[fromRow - j][fromColumn - j].getPiece() != null) {
+                        return false;
+                    }
                 }
+                return board[toRow][toColumn].getPiece() == null
+                        || board[toRow][toColumn].getPiece().isWhite() != isWhiteTurn();
             }
-            return board[toRow][toColumn].getPiece() == null
-                    || board[toRow][toColumn].getPiece().isWhite() != isWhiteTurn();
         }
         return false;
     }
 
     private boolean isValidQueenMovement(int fromRow, int fromColumn, int toRow, int toColumn) {
-        return isValidRookMovement(fromRow, fromColumn, toRow, toColumn)
-                || isValidBishopMovement(fromRow, fromColumn, toRow, toColumn);
+        if (isValidRookMovement(fromRow, fromColumn, toRow, toColumn)) {
+            return true;
+        }
+        if (isValidBishopMovement(fromRow, fromColumn, toRow, toColumn)) {
+            return true;
+        }
+        return false;
     }
 
     private boolean isValidKingMovement(int fromRow, int fromColumn, int toRow, int toColumn) {
