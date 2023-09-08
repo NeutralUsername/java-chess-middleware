@@ -184,6 +184,40 @@ public class Chess {
         if (attackingPiece instanceof Queen && isValidQueenMovement(fromRow, fromColumn, toRow, toColumn)) {
             return true;
         }
+        if (attackingPiece instanceof King ) {
+            if (fromRow == toRow + 1 && fromColumn == toColumn && (board[toRow][toColumn].getPiece() == null
+                    || board[toRow][toColumn].getPiece().isWhite() != attackingPiece.isWhite())) {
+                return true;
+            }
+            if (fromRow == toRow + 1 && fromColumn == toColumn + 1 && (board[toRow][toColumn].getPiece() == null
+                    || board[toRow][toColumn].getPiece().isWhite() != attackingPiece.isWhite())) {
+                return true;
+            }
+            if (fromRow == toRow + 1 && fromColumn == toColumn - 1 && (board[toRow][toColumn].getPiece() == null
+                    || board[toRow][toColumn].getPiece().isWhite() != attackingPiece.isWhite())) {
+                return true;
+            }
+            if (fromRow == toRow && fromColumn == toColumn + 1 && (board[toRow][toColumn].getPiece() == null
+                    || board[toRow][toColumn].getPiece().isWhite() != attackingPiece.isWhite())) {
+                return true;
+            }
+            if (fromRow == toRow && fromColumn == toColumn - 1 && (board[toRow][toColumn].getPiece() == null
+                    || board[toRow][toColumn].getPiece().isWhite() != attackingPiece.isWhite())) {
+                return true;
+            }
+            if (fromRow == toRow - 1 && fromColumn == toColumn && (board[toRow][toColumn].getPiece() == null
+                    || board[toRow][toColumn].getPiece().isWhite() != attackingPiece.isWhite())) {
+                return true;
+            }
+            if (fromRow == toRow - 1 && fromColumn == toColumn + 1 && (board[toRow][toColumn].getPiece() == null
+                    || board[toRow][toColumn].getPiece().isWhite() != attackingPiece.isWhite())) {
+                return true;
+            }
+            if (fromRow == toRow - 1 && fromColumn == toColumn - 1 && (board[toRow][toColumn].getPiece() == null
+                    || board[toRow][toColumn].getPiece().isWhite() != attackingPiece.isWhite())) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -193,6 +227,8 @@ public class Chess {
             return false;
         }
         Piece piece = board[fromRow][fromColumn].getPiece();
+
+        System.out.println(piece.getClass());
         if (piece == null) {
             return false;
         }
