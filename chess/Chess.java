@@ -38,10 +38,45 @@ public class Chess {
         board[7][5] = new Field(7, 5, new Bishop(false));
         board[7][6] = new Field(7, 6, new Knight(false));
         board[7][7] = new Field(7, 7, new Rook(false));
+
+        for (int i = 2; i < 6; i++) {
+            for (int j = 0; j < 8; j++) {
+                board[i][j] = new Field(i, j, null);
+            }
+        }
+
+        printBoard();
+    }
+
+    public void printBoard() {
+        System.out.println("  a b c d e f g h");
+        for (int i = 0; i < 8; i++) {
+            System.out.print((8 - i) + " ");
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j].getPiece() == null) {
+                    System.out.print("  ");
+                } else if (board[i][j].getPiece() instanceof Pawn) {
+                    System.out.print((board[i][j].getPiece().isWhite() ? "P" : "p") + " ");
+                } else if (board[i][j].getPiece() instanceof Rook) {
+                    System.out.print((board[i][j].getPiece().isWhite() ? "R" : "r") + " ");
+                } else if (board[i][j].getPiece() instanceof Knight) {
+                    System.out.print((board[i][j].getPiece().isWhite() ? "N" : "n") + " ");
+                } else if (board[i][j].getPiece() instanceof Bishop) {
+                    System.out.print((board[i][j].getPiece().isWhite() ? "B" : "b") + " ");
+                } else if (board[i][j].getPiece() instanceof Queen) {
+                    System.out.print((board[i][j].getPiece().isWhite() ? "Q" : "q") + " ");
+                } else if (board[i][j].getPiece() instanceof King) {
+                    System.out.print((board[i][j].getPiece().isWhite() ? "K" : "k") + " ");
+                }
+            }
+            System.out.println(8 - i);
+        }
+        System.out.println("  a b c d e f g h");
     }
 
     public void move(int fromRow, int fromColumn, int toRow, int toColumn) {
         if (isValidAction(fromRow, fromColumn, toRow, toColumn)) {
+            String notation = generateAlgebraicNotation(fromRow, fromColumn, toRow, toColumn);
             Piece piece = board[fromRow][fromColumn].getPiece();
             if (piece instanceof King && Math.abs(fromColumn - toColumn) == 2) {
                 if (isWhiteTurn()) {
@@ -66,11 +101,47 @@ public class Chess {
             }
             board[toRow][toColumn].setPiece(piece);
             board[fromRow][fromColumn].setPiece(null);
-            moves.add(getColumnLetter(fromColumn) + (fromRow + 1)); // todo add proper notation
+            moves.add(notation);
             if (piece instanceof Pawn && (toRow == 0 || toRow == 7)) {
                 board[toRow][toColumn].setPiece(new Queen(piece.isWhite()));
             }
         }
+    }
+
+    public String generateAlgebraicNotation(int fromRow, int fromColumn, int toRow, int toColumn) {
+        String notation = "";
+
+        if (board[fromRow][fromColumn].getPiece() instanceof King && Math.abs(fromColumn - toColumn) == 2) {
+            if (toColumn == 6) {
+                notation = "O-O";
+            } else {
+                notation = "O-O-O";
+            }
+            return notation;
+        }
+        
+        if (board[fromRow][fromColumn].getPiece() instanceof Pawn) {
+            notation += getColumnLetter(fromColumn);
+        } else if (board[fromRow][fromColumn].getPiece() instanceof Rook) {
+            notation += "R";
+        } else if (board[fromRow][fromColumn].getPiece() instanceof Knight) {
+            notation += "N";
+        } else if (board[fromRow][fromColumn].getPiece() instanceof Bishop) {
+            notation += "B";
+        } else if (board[fromRow][fromColumn].getPiece() instanceof Queen) {
+            notation += "Q";
+        } else if (board[fromRow][fromColumn].getPiece() instanceof King) {
+            notation += "K";
+        }
+        if (board[toRow][toColumn].getPiece() != null) {
+            if (board[fromRow][fromColumn].getPiece() instanceof Pawn) {
+                notation += getColumnLetter(fromColumn);
+            }
+            notation += "x";
+        }
+        notation += getColumnLetter(toColumn);
+        notation += toRow + 1;
+        return notation;
     }
 
     public boolean isWhiteTurn() {
