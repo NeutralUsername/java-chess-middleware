@@ -66,7 +66,7 @@ public class Chess {
             }
             board[toRow][toColumn].setPiece(piece);
             board[fromRow][fromColumn].setPiece(null);
-            moves.add(getColumnLetter(fromColumn) + (fromRow + 1)); //todo add proper notation
+            moves.add(getColumnLetter(fromColumn) + (fromRow + 1)); // todo add proper notation
             if (piece instanceof Pawn && (toRow == 0 || toRow == 7)) {
                 board[toRow][toColumn].setPiece(new Queen(piece.isWhite()));
             }
@@ -102,23 +102,23 @@ public class Chess {
         if (piece.isWhite() != isWhiteTurn()) {
             return false;
         }
-        if (piece instanceof Pawn) {
-            return isValidPawnMovement(fromRow, fromColumn, toRow, toColumn);
+        if (piece instanceof Pawn && isValidPawnMovement(fromRow, fromColumn, toRow, toColumn)) {
+            return false;
         }
-        if (piece instanceof Rook) {
-            return isValidRookMovement(fromRow, fromColumn, toRow, toColumn);
+        if (piece instanceof Rook && isValidRookMovement(fromRow, fromColumn, toRow, toColumn)) {
+            return false;
         }
-        if (piece instanceof Knight) {
-            return isValidKnightMovement(fromRow, fromColumn, toRow, toColumn);
+        if (piece instanceof Knight && isValidKnightMovement(fromRow, fromColumn, toRow, toColumn)) {
+            return false;
         }
-        if (piece instanceof Bishop) {
-            return isValidBishopMovement(fromRow, fromColumn, toRow, toColumn);
+        if (piece instanceof Bishop && isValidBishopMovement(fromRow, fromColumn, toRow, toColumn)) {
+            return false;
         }
-        if (piece instanceof Queen) {
-            return isValidQueenMovement(fromRow, fromColumn, toRow, toColumn);
+        if (piece instanceof Queen && isValidQueenMovement(fromRow, fromColumn, toRow, toColumn)) {
+            return false;
         }
-        if (piece instanceof King) {
-            return isValidKingMovement(fromRow, fromColumn, toRow, toColumn);
+        if (piece instanceof King && isValidKingMovement(fromRow, fromColumn, toRow, toColumn)) {
+            return false;
         }
 
         Piece toPiece = board[toRow][toColumn].getPiece();
