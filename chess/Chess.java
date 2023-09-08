@@ -44,8 +44,13 @@ public class Chess {
                 board[i][j] = new Field(i, j, null);
             }
         }
+    }
 
-        printBoard();
+    public String getLastMove() {
+        if (moves.size() == 0) {
+            return "";
+        }
+        return moves.get(moves.size() - 1);
     }
 
     public void printBoard() {
@@ -114,37 +119,45 @@ public class Chess {
 
     public String generateAlgebraicNotation(int fromRow, int fromColumn, int toRow, int toColumn) {
         String notation = "";
+        Piece movingPiece = board[fromRow][fromColumn].getPiece();
 
-        if (board[fromRow][fromColumn].getPiece() instanceof King && Math.abs(fromColumn - toColumn) == 2) {
+        if (movingPiece instanceof King && Math.abs(fromColumn - toColumn) == 2) {
             if (toColumn == 6) {
                 notation = "O-O";
             } else {
                 notation = "O-O-O";
             }
             return notation;
-        }
-
-        if (board[fromRow][fromColumn].getPiece() instanceof Pawn) {
-            notation += getColumnLetter(fromColumn);
-        } else if (board[fromRow][fromColumn].getPiece() instanceof Rook) {
-            notation += "R";
-        } else if (board[fromRow][fromColumn].getPiece() instanceof Knight) {
-            notation += "N";
-        } else if (board[fromRow][fromColumn].getPiece() instanceof Bishop) {
-            notation += "B";
-        } else if (board[fromRow][fromColumn].getPiece() instanceof Queen) {
-            notation += "Q";
-        } else if (board[fromRow][fromColumn].getPiece() instanceof King) {
-            notation += "K";
-        }
-        if (board[toRow][toColumn].getPiece() != null) {
-            if (board[fromRow][fromColumn].getPiece() instanceof Pawn) {
-                notation += getColumnLetter(fromColumn);
+        } else if (movingPiece instanceof Pawn) {
+            if (fromColumn != toColumn && board[toRow][toColumn].getPiece() == null) {
+                notation = getColumnLetter(fromColumn) + "x" + getColumnLetter(toColumn) + (toRow + 1);
+            } else {
+                notation = getColumnLetter(toColumn) + (toRow + 1);
             }
-            notation += "x";
+            if (toRow == 0 || toRow == 7) {
+                notation += "=Q";
+            }
+            return notation;
+        } 
+
+        if (board[toRow][toColumn].getPiece() != null) {
+            notation += movingPiece instanceof Rook ? "R" : movingPiece instanceof Knight ? "N"
+                    : movingPiece instanceof Bishop ? "B" : movingPiece instanceof Queen ? "Q" : "K";
+            if (fromColumn == toColumn) {
+                notation += getColumnLetter(fromColumn);
+            } else {
+                notation += getColumnLetter(fromColumn) + "x";
+            }
+        } else {
+            notation += movingPiece instanceof Rook ? "R" : movingPiece instanceof Knight ? "N"
+                    : movingPiece instanceof Bishop ? "B" : movingPiece instanceof Queen ? "Q" : "K";
+            if (fromColumn == toColumn) {
+                notation += getColumnLetter(fromColumn);
+            } else {
+                notation += getColumnLetter(fromColumn) + "x";
+            }
         }
-        notation += getColumnLetter(toColumn);
-        notation += toRow + 1;
+        notation += getColumnLetter(toColumn) + (toRow + 1);
         return notation;
     }
 

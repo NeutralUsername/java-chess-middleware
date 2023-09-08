@@ -11,7 +11,28 @@ public class Main {
          * server.listenForConnections();
          */
 
-        Chess chess = new Chess();
+        /* en passant
+         * Chess chess = new Chess();
+         * chess.printBoard();
+         * 
+         * chess.move(1, 0, 2, 0);
+         * chess.printBoard();
+         * 
+         * chess.move(6, 0, 4, 0);
+         * chess.printBoard();
+         * 
+         * chess.move(1, 7, 3, 7);
+         * chess.printBoard();
+         * 
+         * chess.move(4, 0, 3, 0);
+         * chess.printBoard();
+         * 
+         * chess.move(1, 1, 3, 1);
+         * chess.printBoard();
+         * 
+         * chess.move(3, 0, 2, 1);
+         * chess.printBoard();
+         */
 
         /*
          * fools mate
@@ -94,7 +115,8 @@ public class Main {
          * chess.printBoard();
          */
 
-        /* castling (king side) (failed because rook has moved)
+        /*
+         * castling (king side) (failed because rook has moved)
          * chess.move(0, 6, 2, 5);
          * chess.printBoard();
          * 
