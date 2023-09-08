@@ -10,5 +10,10 @@ public class Main {
         server.listenForConnections(); */
 
         Chess chess = new Chess();
+        chess.move(1, 4, 3, 4);
+        chess.printBoard();
+
+        chess.move(6, 4, 4, 4);
+        chess.printBoard();
     }
 }
