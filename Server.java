@@ -100,7 +100,8 @@ public class Server {
                     game.move(fromRow, fromCol, toRow, toCol);
                     senderConnection.sendMessage(senderConnection.isWhite() ? "w" : "b", game.getBoardString());
                     if (!senderConnection.getOpponent().isClosed()) {
-                        senderConnection.getOpponent().sendMessage(senderConnection.isWhite() ? "b" : "w", game.getBoardString());
+                        senderConnection.getOpponent().sendMessage(senderConnection.isWhite() ? "b" : "w",
+                                game.getBoardString());
                     }
                 }
             }
