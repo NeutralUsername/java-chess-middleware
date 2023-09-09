@@ -82,7 +82,7 @@ public class Server {
                 }
                 break;
             case "m": {
-                System.out.println("test");
+                System.out.println("m: " + messageContent);
             }
         }
     }
