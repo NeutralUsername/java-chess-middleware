@@ -82,7 +82,6 @@ public class Server {
                 }
                 break;
             case "m": {
-                System.out.println("m: " + messageContent);
                 String[] split = messageContent.split(",");
                 int from = Integer.parseInt(split[0]);
                 int to = Integer.parseInt(split[1]);
