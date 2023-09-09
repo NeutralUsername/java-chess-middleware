@@ -11,6 +11,7 @@ public class Connection {
     private String id;
 
     private Chess game;
+    private Connection opponent;
     private Boolean isWhite;
 
     public Connection(Socket socket, String id) {
@@ -18,8 +19,24 @@ public class Connection {
         this.id = id;
     }
 
+    public Chess getGame() {
+        return game;
+    }
+
+    public Boolean isWhite() {
+        return isWhite;
+    }
+
     public boolean isClosed() {
         return socket.isClosed();
+    }
+
+    public void setOpponent(Connection opponent) {
+        this.opponent = opponent;
+    }
+
+    public Connection getOpponent() {
+        return opponent;
     }
 
     public String readNextMessage() {

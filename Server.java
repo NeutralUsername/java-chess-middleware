@@ -69,20 +69,39 @@ public class Server {
                     senderConnection.sendMessage("e", "unknown id");
                 } else if (senderConnection == receiverConnection) {
                     senderConnection.sendMessage("e", "invalid id");
+                } else if (receiverConnection.isIngame() || senderConnection.isIngame()) {
+                    senderConnection.sendMessage("e", "already in game");
                 } else {
-                    if (receiverConnection.isIngame() || senderConnection.isIngame()) {
-                        senderConnection.sendMessage("e", "already in game");
-                    } else {
-                        Chess game = new Chess();
-                        senderConnection.setGame(game, true);
-                        receiverConnection.setGame(game, false);
-                        senderConnection.sendMessage("w", game.getBoardString());
-                        receiverConnection.sendMessage("b",  game.getBoardString());
-                    }
+                    Chess game = new Chess();
+                    senderConnection.setGame(game, true);
+                    receiverConnection.setGame(game, false);
+                    senderConnection.setOpponent(receiverConnection);
+                    receiverConnection.setOpponent(senderConnection);
+                    senderConnection.sendMessage("w", game.getBoardString());
+                    receiverConnection.sendMessage("b", game.getBoardString());
                 }
                 break;
             case "m": {
                 System.out.println("m: " + messageContent);
+                String[] split = messageContent.split(",");
+                int from = Integer.parseInt(split[0]);
+                int to = Integer.parseInt(split[1]);
+                int fromRow = from / 8;
+                int fromCol = from % 8;
+                int toRow = to / 8;
+                int toCol = to % 8;
+                Chess game = senderConnection.getGame();
+                if (game == null) {
+                    senderConnection.sendMessage("e", "not in game");
+                } else if (game.isWhiteTurn() != senderConnection.isWhite()) {
+                    senderConnection.sendMessage("e", "not your turn");
+                } else if (!game.isValidAction(fromRow, fromCol, toRow, toCol)) {
+                    senderConnection.sendMessage("e", "invalid move");
+                } else {
+                    game.move(fromRow, fromCol, toRow, toCol);
+                    senderConnection.sendMessage(senderConnection.isWhite() ? "w" : "b", game.getBoardString());
+                    senderConnection.getOpponent().sendMessage(senderConnection.isWhite() ? "b" : "w", game.getBoardString());
+                }
             }
         }
     }
