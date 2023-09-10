@@ -68,7 +68,7 @@ public class Connection {
         return id;
     }
 
-    public void setGame(Chess game, boolean isWhite) {
+    public void setGame(Chess game, Boolean isWhite) {
         this.game = game;
         this.isWhite = isWhite;
     }

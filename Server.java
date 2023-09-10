@@ -81,7 +81,7 @@ public class Server {
                     receiverConnection.sendMessage("b", game.getBoardString());
                 }
                 break;
-            case "m": {
+            case "m":
                 String[] split = messageContent.split(",");
                 int from = Integer.parseInt(split[0]);
                 int to = Integer.parseInt(split[1]);
@@ -104,7 +104,16 @@ public class Server {
                                 game.getBoardString());
                     }
                 }
-            }
+                break;
+            case "x":
+                senderConnection.sendMessage("x", "");
+                senderConnection.getOpponent().sendMessage("x", "");
+                senderConnection.getOpponent().setGame(null, null);
+                senderConnection.getOpponent().setOpponent(null);
+                senderConnection.setGame(null, null);
+                senderConnection.setOpponent(null);
+                break;
+
         }
     }
 
