@@ -11,6 +11,14 @@ import chess.Chess;
 public class Server {
     private HashMap<String, Connection> connections;
     private ServerSocket serverSocket;
+    private static Server singleton;
+
+    public static Server getSingleton() {
+        if (singleton == null) {
+            singleton = new Server(4711);
+        }
+        return singleton;
+    }
 
     public Server(int port) {
         connections = new HashMap<String, Connection>();

@@ -1,2 +1,4 @@
 *.class
 /chess/*
+/.vscode/*
+/fastlane-frontend/*
