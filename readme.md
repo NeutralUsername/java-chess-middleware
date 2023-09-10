@@ -19,7 +19,7 @@ repräsentation des spielbretts als formatierter raster aus quadraten mit entspr
 speichern der züge in standard algebraischer schach notation.
 
 Overkill
-der server kann "threotisch unendlich viele" (abhängig von maximaler anzahl an threads und u.u anderen constraints) spiele gleichzeitig managen.
+der server kann "theoretisch unendlich viele" (abhängig von maximaler anzahl an threads und u.u anderen constraints) spiele gleichzeitig managen.
 drag und drop steuerung um züge zu machen.
 highlighting des quadrats das gerade gedragged wird und jenes, über welches gerade gedragged wird.
 
