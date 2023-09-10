@@ -1,6 +1,9 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Time;
 import java.util.HashMap;
 
 import chess.Chess;
@@ -106,6 +109,17 @@ public class Server {
                 }
                 break;
             case "x":
+                String movesString = senderConnection.getGame().getMovesString();
+                File file = new File(senderConnection.getId() + "_" + senderConnection.getOpponent().getId() + "_"
+                        + Time.valueOf(java.time.LocalTime.now()).toString() + ".log");
+                try {
+                    file.createNewFile();
+                    FileWriter writer = new FileWriter(file);
+                    writer.write(movesString);
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 senderConnection.sendMessage("x", "");
                 senderConnection.getOpponent().sendMessage("x", "");
                 senderConnection.getOpponent().setGame(null, null);
