@@ -20,7 +20,7 @@ public class Server {
         return singleton;
     }
 
-    public Server(int port) {
+    private Server(int port) {
         connections = new HashMap<String, Connection>();
         try {
             serverSocket = new ServerSocket(port);
