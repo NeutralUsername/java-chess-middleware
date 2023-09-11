@@ -14,9 +14,30 @@ public class Connection {
     private Connection opponent;
     private Boolean isWhite;
 
-    public Connection(Socket socket, String id) {
+    private Server server;
+    private MessageListener messageListener;
+
+    public Connection(Server server, Socket socket, String id) {
         this.socket = socket;
         this.id = id;
+        this.server = server;
+        messageListener = new MessageListener(this, server);
+    }
+
+    public boolean startMessageListener() {
+        if (messageListener.isRunning()) {
+            return false;
+        }
+        new Thread(messageListener).start();
+        return true;
+    }
+
+    public boolean stopMessageListener() {
+        if (!messageListener.isRunning()) {
+            return false;
+        }
+        messageListener.stop();
+        return true;
     }
 
     public Chess getGame() {
@@ -83,11 +104,12 @@ public class Connection {
         }
     }
 
-    public void close() {
+    public void terminate() {
         try {
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        server.removeConnection(id);
     }
 }

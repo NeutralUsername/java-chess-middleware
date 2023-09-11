@@ -12,6 +12,7 @@ public class Server {
     private HashMap<String, Connection> connections;
     private ServerSocket serverSocket;
     private static Server singleton;
+    private ConnectionListener connectionListener = new ConnectionListener(this);
 
     public static Server getSingleton() {
         if (singleton == null) {
@@ -24,52 +25,10 @@ public class Server {
         connections = new HashMap<String, Connection>();
         try {
             serverSocket = new ServerSocket(port);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void listenForConnections() {
-        while (true) {
-            Connection connection = acceptNextConnection();
-            if (connection == null) {
-                continue;
-            }
-            connection.sendMessage("i", connection.getId());
-            listenForMessages(connection);
-        }
-    }
-
-    public Connection acceptNextConnection() {
-        try {
-            Socket socket = serverSocket.accept();
-            String id = utility.generateRandomAlphaNumericString(10);
-            while (getConnection(id) != null) {
-                id = utility.generateRandomAlphaNumericString(10);
-            }
-            Connection connection = new Connection(socket, id);
-            addConnection(connection);
-            return connection;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public void listenForMessages(Connection connection) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    String message = connection.readNextMessage();
-                    if (message == null) {
-                        break;
-                    }
-                    handleMessage(connection, message.substring(0, 1), message.substring(1));
-                }
-                terminateConnection(connection);
-            }
-        }).start();
     }
 
     public void handleMessage(Connection senderConnection, String messageType, String messageContent) {
@@ -139,9 +98,30 @@ public class Server {
         }
     }
 
-    public void terminateConnection(Connection connection) {
-        connection.close();
-        removeConnection(connection.getId());
+    public boolean startConnectionListener() {
+        if (connectionListener.isRunning()) {
+            return false;
+        }
+        new Thread(connectionListener).start();
+        return true;
+    }
+
+    public boolean stopConnectionListener() {
+        if (!connectionListener.isRunning()) {
+            return false;
+        }
+        connectionListener.stop();
+        return true;
+    }
+
+    public Socket acceptNextSocket() {
+        try {
+            Socket socket = serverSocket.accept();
+            return socket;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void terminateServer() {
@@ -162,9 +142,5 @@ public class Server {
 
     public Connection getConnection(String id) {
         return connections.get(id);
-    }
-
-    public ServerSocket getServerSocket() {
-        return serverSocket;
     }
 }
