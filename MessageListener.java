@@ -6,7 +6,6 @@ public class MessageListener implements Runnable {
 
     public MessageListener(Connection connection, Server server) {
         this.connection = connection;
-        System.out.println(server);
         this.server = server;
     }
 

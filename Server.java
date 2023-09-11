@@ -9,9 +9,9 @@ import java.util.HashMap;
 import chess.Chess;
 
 public class Server {
+    private static Server singleton;
     private HashMap<String, Connection> connections;
     private ServerSocket serverSocket;
-    private static Server singleton;
     private ConnectionListener connectionListener = new ConnectionListener(this);
 
     public static Server getSingleton() {
