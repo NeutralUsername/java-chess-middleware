@@ -88,7 +88,9 @@ public class Server {
                     e.printStackTrace();
                 }
                 senderConnection.sendMessage("x", "");
-                senderConnection.getOpponent().sendMessage("x", "");
+                if (!senderConnection.getOpponent().isClosed()) {
+                    senderConnection.getOpponent().sendMessage("x", "");
+                }
                 senderConnection.getOpponent().setGame(null, null);
                 senderConnection.getOpponent().setOpponent(null);
                 senderConnection.setGame(null, null);
