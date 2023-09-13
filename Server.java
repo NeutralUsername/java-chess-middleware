@@ -42,7 +42,7 @@ public class Server {
                 } else if (receiverConnection.isIngame() || senderConnection.isIngame()) {
                     senderConnection.sendMessage("e", "already in game");
                 } else {
-                    Chess game = new Chess();
+                    Chess game = new Chess(60*10);
                     senderConnection.setGame(game, true);
                     receiverConnection.setGame(game, false);
                     senderConnection.setOpponent(receiverConnection);
