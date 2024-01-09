@@ -11,14 +11,14 @@ Must Have Features
 - simple version der schach regeln. keine promotion, kein castling, kein en passant.
 - kein doppelzug. neues spiel wird gestartet indem server + frontends neu gestartet/geöffnet werden.
 
-Should have features
+Should have Features
 
 - Beim start des frontends wird jedem client eine id zugewiesen.
 - mit dieser id kann man sich zu anderen aktiven clients verbinden und ein spiel starten.
 - komplexere schach regeln (queen promotion, castling, en passant, doppelzug).
 - id kann über mouseclick in die zwischenablage kopiert werden um sie einfacher zu teilen.
  
-Nice to have features
+Nice to have Features
 
 - spiel kann über button druck beendet werden und man wird anschließend zurück in die lobby gebracht, wo man sich erneut mit anderen spielern verbinden kann.
 - middelware architektur, die es ermöglicht, das system einfach mit neuen funktionalitäten zu erweitern.
