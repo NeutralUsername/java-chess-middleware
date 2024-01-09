@@ -37,6 +37,8 @@ Overkill
 
 die middleware nutzt die java-chess-logic und speichert den aktuellen zustand der spiele im arbeitsspeicher und ordnet die socket-verbindungen den spielern zu.
 
+jedem client wird eine id zugewiesen und mitgeteilt. durch die eingabe der id eines anderen clients, kann ein spiel mit diesem gestartet werden (sofern verfügbar).
+
 Das frontend verbindet sich zur middleware über java sockets(tcp).
 die spieler sehen am frontend eine repräsentation des aktuellen spielbretts und können dort über drag und drop züge veranlassen.
 die middleware überprüft daraufhin die legalität des zugs und führt ihn gegebenenfalls aus und propagiert die änderung zum frontend und der andere spieler ist an der reihe.
