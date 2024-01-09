@@ -9,7 +9,7 @@ Must Have Features
 - verbindung/matchmaking wird automatisch beim starten der frontends im hintergrund durchgeführt.
 - repräsentation des spielfelds über textblock im ui. züge per text-feld input und button druck zum senden.
 - simple version der schach regeln. keine promotion, kein castling, kein en passant.
-- kein doppelzug. neues spiel wird gestartet indem server + frontends neu gestartet/geöffnet werden.
+- neues spiel wird gestartet indem server + frontends neu gestartet/geöffnet werden.
 
 Should have Features
 
