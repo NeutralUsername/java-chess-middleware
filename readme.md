@@ -30,6 +30,6 @@ Overkill
 - der server kann "theoretisch unendlich viele" (abhängig von maximaler anzahl an threads und u.u anderen constraints) spiele gleichzeitig managen.
 - drag und drop steuerung um züge zu machen.
 - highlighting des quadrats das gerade gedragged wird und jenes, über welches gerade gedragged wird.
-
+- individueller timer für beide spieler. nach ablauf ist kein zug mehr gültig. timer läuft nur für den spieler, der gerade an der reihe ist.
 
 
