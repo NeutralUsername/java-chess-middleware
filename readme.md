@@ -1,7 +1,7 @@
 # chess
 -Fabian Stuck (ic22b113@technikum-wien.at)
 
-requirements:
+## requirements:
 
 Must Have Features
  
@@ -31,5 +31,19 @@ Overkill
 - drag und drop steuerung um züge zu machen.
 - highlighting des quadrats das gerade gedragged wird und jenes, über welches gerade gedragged wird.
 - individueller timer für beide spieler. nach ablauf ist kein zug mehr gültig. timer läuft nur für den spieler, der gerade an der reihe ist.
+
+
+## grobe übersicht der funktionalität
+
+die middleware nutzt die java-chess-logic und speichert den aktuellen zustand der spiele im arbeitsspeicher und ordnet die socket-verbindungen den spielern zu.
+
+Das frontend verbindet sich zur middleware über java sockets(tcp).
+die spieler sehen am frontend eine repräsentation des aktuellen spielbretts und können dort über drag und drop züge veranlassen.
+die middleware überprüft daraufhin die legalität des zugs und führt ihn gegebenenfalls aus und propagiert die änderung zum frontend und der andere spieler ist an der reihe.
+
+spieler können zu jedem zeitpunkt das spiel über einen knopf verlassen.
+wenn beide spieler das spiel verlassen haben gibt es keine referenz mehr zum spiel und es wird dann irgendwann von der garbage-collection entfernt.
+
+unmittelbar nach dem verlassen des spiels kann ein neues spiel gestartet werden, ohne das frontend programm neu zu starten.
 
 
