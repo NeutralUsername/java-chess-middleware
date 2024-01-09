@@ -1,5 +1,5 @@
 # chess
--Fabian Stuck (ic22b113@technikum-wien.at)
+- Fabian Thomas Stuck (ic22b113@technikum-wien.at)
 
 ## requirements:
 
